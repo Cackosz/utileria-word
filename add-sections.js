@@ -18,7 +18,7 @@ function getTitles(section) {
 function getTypeLetter(text) {
     const paragraphs = [];
     let typeLetter = text._attributes ? utilsDocx.typeLetter(text._attributes.letter) : utilsDocx.typeLetter('');
-    let textRun = { text: text._text.concat(space), bold: typeLetter, font: 'Arial', };
+    let textRun = { text: text._text.concat(space), bold: typeLetter, font: 'Arial', size: 22};
     paragraphs.push(utilsDocx.addTextRun(textRun));
     return paragraphs;
 }

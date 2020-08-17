@@ -12,18 +12,22 @@
         <head>
             <table width="9000">
                 <row>
-                    <cell columnSpan="2" top="1000" bottom="1000" left="1000" right="4000">
-                        <text>Fila 1 - Columna 1</text>
+                    <cell columnSpan="2" top="300" bottom="300" left="1000">
+                        <text>SUSPICIOUS ACTIVITY REPORTING</text>
                     </cell>
                 </row>
                 <row>
-                    <cell>
-                        <text>Fila 1 - Columna 2</text>
+                    <cell rowSpan="2"  top="300" bottom="300" left="1000">
+                        <text>SUSPICIOUS ACTIVITY IDENTIFICATION AND REPORTING PROCEDURE</text>
                     </cell>
                     <cell>
-                        <text>Fila 2 - Columna 2</text>
+                        <text>Effective Date: 17/08/2020 (Rev: 16/07/2020)</text>
                     </cell>
-                    
+                </row>
+                <row>
+                    <cell pages="true">
+                        <text>Pager</text>
+                    </cell>
                 </row>
             </table>
         </head>
@@ -103,35 +107,7 @@
             <text letter="bold">Fin parte 4.</text>
         </p>
     </section>
-    <section>
-        <title letter="title">Test?</title>
-        <p>
-            <text letter="bold">Inicia parte 5.</text>
-        </p>
-        <p>
-            <text>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.</text>
-            <text>If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.</text>
-            <text>All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.</text>
-        </p>
-        <p>
-            <text letter="bold">Fin parte 5.</text>
-        </p>
-    </section>
-    <section>
-        <title letter="title">Test? 6</title>
-        <p>
-            <text letter="bold">Inicia parte 6.</text>
-        </p>
-        <p>
-            <text>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.</text>
-            <text>If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.</text>
-            <text>All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.</text>
-        </p>
-        <p>
-            <text>Fin parte 6.</text>
-        </p>
-    </section>
-    <!-- INICIA TABLA -->
+    <!-- INICIA TABLAS -->
     <tables>
         
         <table>

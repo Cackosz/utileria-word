@@ -14,5 +14,13 @@
     "fs": "0.0.1-security",
     "xml-js": "^1.6.11",
     "serverless-offline": "^6.5.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Cackosz/utileria-word.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Cackosz/utileria-word/issues"
+  },
+  "homepage": "https://github.com/Cackosz/utileria-word#readme"
 }

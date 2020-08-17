@@ -1,5 +1,6 @@
 const { isArray } = require('util');
 const utilsDocx = require('./utils-docx');
+const defaultHead = require('./default-header');
 const space = ' ';
 
 function getAtributosCell(attr, children) {
@@ -24,13 +25,19 @@ function getTableCell(cell) {
     if (Object.entries(cell).length !== 0) {
         const childrenCell = [];
         if (cell.text._text) {
-            childrenCell.push(utilsDocx.addParagraph(cell.text._text));
-        }
-        if (cell._attributes) {
-            const tableCell = getAtributosCell(cell._attributes, childrenCell);
-            return utilsDocx.generateTableCell(tableCell);
-        } else {
-            return utilsDocx.generateTableCell({ children: childrenCell });
+            if (cell._attributes) {
+                if (cell._attributes.pages) {
+                    childrenCell.push(defaultHead.defaultHeader());
+                } else {
+                    childrenCell.push(utilsDocx.addParagraph(cell.text._text));
+                }
+                const tableCell = getAtributosCell(cell._attributes, childrenCell);
+                console.log('tableCell', tableCell)
+                return utilsDocx.generateTableCell(tableCell, cell._attributes.width);
+            } else {
+                childrenCell.push(utilsDocx.addParagraph(cell.text._text));
+                return utilsDocx.generateTableCell({ children: childrenCell });
+            }
         }
 
     }

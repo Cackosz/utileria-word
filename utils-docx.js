@@ -46,12 +46,21 @@ module.exports.typeLetter = (letter) => {
     return type;
 };
 
-module.exports.generateTableCell = (childrenCell) => {
+module.exports.generateTableCell = (childrenCell, attr) => {
+    let respuesta = {};
     if (!childrenCell) {
         console.log('Error en generar tables cell desde docx');
         return null;
     }
-    return new docx.TableCell(childrenCell);
+    if (attr) {
+        childrenCell.width = {
+            size: attr.width,
+            type: docx.WidthType.DXA,
+        }
+        return new docx.TableCell(childrenCell);
+    } else {
+        return new docx.TableCell(childrenCell);
+    }
 }
 
 module.exports.generateTableRow = (childrenRows) => {
