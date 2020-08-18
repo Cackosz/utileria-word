@@ -1,9 +1,9 @@
 // Helpers
 const utilsDocx = require('./utils-doc/utils-docx');
-const utilsXml = require('./read-xml');
-const utilsHeaders = require('./utils-headers');
+const utilsXml = require('./xml/read-xml');
+const utilsHeaders = require('./utils-doc/utils-headers');
 // Seccion a agregar
-const section = require('./add-sections');
+const section = require('./section/add-sections');
 
 
 module.exports.hello = async event => {

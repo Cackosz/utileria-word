@@ -3,7 +3,7 @@ const fs = require('fs');
 module.exports.readXml = (xmlFile) => {
     if (!xmlFile) {
         console.log('Toma el xml de ejemplo para pruebas'),
-            xmlFile = fs.readFileSync('./file.xml', 'utf-8');
+            xmlFile = fs.readFileSync('./xml/file.xml', 'utf-8');
     }
     // Se valida que exista archivo
     if (!xmlFile.trim()) {

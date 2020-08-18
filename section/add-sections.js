@@ -1,11 +1,13 @@
 
 
-const utilsDocx = require('./utils-docx');
-const space = ' ';
-const { isArray } = require('util');
+// Helpers 
+const utilsDocx = require('../utils-doc/utils-docx');
 const alineacion = 'justified';
-const utilsTable = require('./utils-table');
-const utilsImage = require('./utils-image');
+const utilsTable = require('../utils-doc/utils-table');
+const utilsImage = require('../utils-doc/utils-image');
+const { isArray } = require('util'); 
+const space = ' ';
+
 
 function getTitles(section) {
     const title = section.title;

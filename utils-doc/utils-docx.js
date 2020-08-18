@@ -144,7 +144,9 @@ module.exports.addImage = (doc, imageBase64Data, properties) => {
     if (properties.flujo === 0) {
         image = docx.Media.addImage(doc, Uint8Array.from(atob(imageBase64Data), c => c.charCodeAt(0)), parseFloat(properties.width), parseFloat(properties.height));
     } else {
-        imagen = docx.Media.addImage(doc, Uint8Array.from(atob(imageBase64Data), c => c.charCodeAt(0)), parseFloat(properties.width), parseFloat(properties.height), {
+        const ancho = parseInt(properties.width);
+        const altura = parseInt(properties.height);
+        image = docx.Media.addImage(doc, Uint8Array.from(atob(imageBase64Data), c => c.charCodeAt(0)), ancho, altura, {
             floating: {
                 horizontalPosition: {
                     offset: parseFloat(properties.horizontal),
