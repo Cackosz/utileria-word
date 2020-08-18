@@ -1,4 +1,6 @@
-const utilsDocx = require('./utils-doc/utils-docx');
+const { isArray } = require('util');
+const utilsDocx = require('./utils-docx');
+
 
 function getProperties(image) {
     let properties = {};

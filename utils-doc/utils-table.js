@@ -1,5 +1,5 @@
 const { isArray } = require('util');
-const utilsDocx = require('./utils-doc/utils-docx');
+const utilsDocx = require('./utils-docx');
 const defaultHead = require('./default-header');
 const space = ' ';
 
