@@ -29,8 +29,25 @@ module.exports.alignment = (alinear) => {
 module.exports.head = (type) => {
     let encabezado = {};
     if (type) {
-        if (type === 'title') {
-            encabezado = docx.HeadingLevel.HEADING_1;
+        switch (type) {
+            case 'title':
+                encabezado = docx.HeadingLevel.HEADING_1;
+                break;
+            case 'title2':
+                encabezado = docx.HeadingLevel.HEADING_2;
+                break;
+            case 'title3':
+                encabezado = docx.HeadingLevel.HEADING_3;
+                break;
+            case 'subtitle4':
+                encabezado = docx.HeadingLevel.HEADING_4;
+                break;
+            case 'subtitle5':
+                encabezado = docx.HeadingLevel.HEADING_5;
+                break;
+            default:
+                encabezado = docx.HeadingLevel.HEADING_6;
+                break;
         }
     }
     return encabezado;

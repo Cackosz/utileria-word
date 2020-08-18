@@ -4,10 +4,11 @@ const utilsDocx = require('./utils-docx');
 const space = ' ';
 const { isArray } = require('util');
 const alineacion = 'justified';
+const utilsTable = require('./add-table');
 
 function getTitles(section) {
     const title = section.title;
-    const head = title._attributes.letter === 'title' ? utilsDocx.head(title._attributes.letter) : '';
+    const head = title._attributes.letter ? utilsDocx.head(title._attributes.letter) : '';
     const paragraphTitle = {
         text: title._text,
         heading: head
@@ -17,8 +18,11 @@ function getTitles(section) {
 
 function getTypeLetter(text) {
     const paragraphs = [];
+    let textRun = {};
     let typeLetter = text._attributes ? utilsDocx.typeLetter(text._attributes.letter) : utilsDocx.typeLetter('');
-    let textRun = { text: text._text.concat(space), bold: typeLetter, font: 'Arial', size: 22};
+    if (text._text) {
+        textRun = { text: text._text.concat(space), bold: typeLetter, font: 'Arial', size: 22 };
+    }
     paragraphs.push(utilsDocx.addTextRun(textRun));
     return paragraphs;
 }
@@ -66,6 +70,18 @@ function procesandoSeccion(section) {
                 const paragraph = getText(tagText);
                 childrenPrincipal.push(paragraph);
             }
+        }
+    }
+    if (section.tables) {
+        if (isArray(section.tables)) {
+            console.log('si es array')
+        } else {
+            console.log('no es arra newy');
+            const test = utilsTable.generarTabla(section.tables);
+            test.forEach(table => {
+                console.log('tabless', table);
+                childrenPrincipal.push(table);
+            });
         }
     }
     return childrenPrincipal;

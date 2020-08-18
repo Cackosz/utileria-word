@@ -103,15 +103,17 @@ function buildTable(tablesXml) {
 };
 
 module.exports.generarTabla = (tables) => {
-    const table = buildTable(tables);
     const children = [];
-    if (table) {
-        table.forEach(table => {
-            children.push(utilsDocx.addParagraph({
-                text: space,
-                children: [table]
-            }));
-        });
+    if (tables) {
+        const table = buildTable(tables);
+        if (table) {
+            table.forEach(table => {
+                children.push(utilsDocx.addParagraph({
+                    text: space,
+                    children: [table]
+                }));
+            });
+        }
     }
     return children;
 }

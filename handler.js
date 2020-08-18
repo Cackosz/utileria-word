@@ -32,9 +32,9 @@ module.exports.hello = async event => {
   // Se agrega una sección o secciones dependiendo el xml con encabezados
   const childrenPrincipal = utilsSection.agregarSeccion(jsonData.document.section);
   doc.addSection(utilsHeaders.getHeaders(childrenPrincipal, jsonData.document.headers));
-  // Ejecutar tabla basica en nueva página
-  const table = utilsTable.generarTabla(jsonData.document.tables);
-  doc.addSection(utilsHeaders.getHeaders(table, jsonData.document.headers));
+  // // Ejecutar tabla basica en nueva página
+  // const table = utilsTable.generarTabla(jsonData.document.tables);
+  // doc.addSection(utilsHeaders.getHeaders(table, jsonData.document.headers));
   // Se genera el doc
   await utilsDoc.generacionDoc(doc);
   // Se genera documento en base64
