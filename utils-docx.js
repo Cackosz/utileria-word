@@ -1,5 +1,6 @@
 const docx = require('docx');
 const fs = require('fs');
+const atob = require('atob');
 module.exports.addTextRun = (obj) => {
     if (!obj) {
         console.log('Ocurrio un error en agregar un TextRun desde docx');
@@ -64,7 +65,6 @@ module.exports.typeLetter = (letter) => {
 };
 
 module.exports.generateTableCell = (childrenCell, attr) => {
-    let respuesta = {};
     if (!childrenCell) {
         console.log('Error en generar tables cell desde docx');
         return null;
@@ -134,6 +134,34 @@ module.exports.getTotalPages = () => {
 module.exports.getPageNumberFormat = () => {
     return docx.PageNumberFormat.DECIMAL;
 }
+
+module.exports.addImage = (doc, imageBase64Data, properties) => {
+    if (!doc && imageBase64Data && properties) {
+        console.log('Ocurrio un error en agrega la img desde docx');
+        return null;
+    }
+    let image = {};
+    if (properties.flujo === 0) {
+        image = docx.Media.addImage(doc, Uint8Array.from(atob(imageBase64Data), c => c.charCodeAt(0)), parseFloat(properties.width), parseFloat(properties.height));
+    } else {
+        imagen = docx.Media.addImage(doc, Uint8Array.from(atob(imageBase64Data), c => c.charCodeAt(0)), parseFloat(properties.width), parseFloat(properties.height), {
+            floating: {
+                horizontalPosition: {
+                    offset: parseFloat(properties.horizontal),
+                },
+                verticalPosition: {
+                    offset: parseFloat(properties.vertical),
+                },
+                // Se queda por default
+                wrap: {
+                    type: docx.TextWrappingType.TOP_AND_BOTTOM,
+                    side: docx.TextWrappingSide.BOTH_SIDES,
+                },
+            },
+        });
+    }
+    return image;
+}
 module.exports.createDocument = (documento) => {
     if (!documento) {
         console.log('Ocurrio un error en crear el documento desde docx');
@@ -149,7 +177,6 @@ module.exports.createDocument = (documento) => {
 }
 
 module.exports.tableContents = (titulo) => {
-    console.log('titulo', titulo)
     if (!titulo) {
         console.log('Ocurrio un error al generar tabla de contenido desde docx');
         return null;

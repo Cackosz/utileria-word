@@ -5,7 +5,6 @@ module.exports.readXml = (xmlFile) => {
         console.log('Toma el xml de ejemplo para pruebas'),
             xmlFile = fs.readFileSync('./file.xml', 'utf-8');
     }
-    console.log('xmlFile', xmlFile);
     // Se valida que exista archivo
     if (!xmlFile.trim()) {
         console.log('Error en el xml');

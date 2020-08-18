@@ -10,10 +10,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "atob": "^2.1.2",
     "docx": "^5.3.0",
     "fs": "0.0.1-security",
-    "xml-js": "^1.6.11",
-    "serverless-offline": "^6.5.0"
+    "serverless-offline": "^6.5.0",
+    "xml-js": "^1.6.11"
   },
   "repository": {
     "type": "git",

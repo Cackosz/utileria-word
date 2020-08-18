@@ -32,7 +32,6 @@ function getTableCell(cell) {
                     childrenCell.push(utilsDocx.addParagraph(cell.text._text));
                 }
                 const tableCell = getAtributosCell(cell._attributes, childrenCell);
-                console.log('tableCell', tableCell)
                 return utilsDocx.generateTableCell(tableCell, cell._attributes.width);
             } else {
                 childrenCell.push(utilsDocx.addParagraph(cell.text._text));
@@ -63,7 +62,6 @@ function agregarTabla(tableXml) {
     if (isArray(tableXml.row)) {
         for (let i = 0; i < tableXml.row.length; i++) {
             rowsTable.push(getRow(tableXml.row[i]));
-            console.log('rowsTable', rowsTable);
         }
     } else if (tableXml.row) {
         rowsTable.push(getRow(tableXml.row));
@@ -82,19 +80,16 @@ function agregarTabla(tableXml) {
 function recorrerTablas(tablesXml) {
     let table = [];
     if (isArray(tablesXml.table)) {
-        console.log('Entro a recorrer varias tablas', tablesXml);
         tablesXml.table.forEach(tableXml => {
             table.push(agregarTabla(tableXml));
         });
     } else {
-        console.log('Entro a recorrer solo una tabla', tablesXml)
         table.push(agregarTabla(tablesXml.table));
     }
     return table;
 };
 
 function buildTable(tablesXml) {
-    console.log('tablesXml')
     let table = {};
     if (tablesXml) {
         table = recorrerTablas(tablesXml)

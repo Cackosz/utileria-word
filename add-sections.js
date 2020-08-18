@@ -4,7 +4,8 @@ const utilsDocx = require('./utils-docx');
 const space = ' ';
 const { isArray } = require('util');
 const alineacion = 'justified';
-const utilsTable = require('./add-table');
+const utilsTable = require('./utils-table');
+const utilsImage = require('./utils-image');
 
 function getTitles(section) {
     const title = section.title;
@@ -48,7 +49,7 @@ function getText(tagText) {
     return utilsDocx.addParagraph(paragraph);
 }
 
-function procesandoSeccion(section) {
+function procesandoSeccion(section, doc) {
     const childrenPrincipal = [];
     if (section.title) {
         const paragraphTitle = getTitles(section);
@@ -84,24 +85,27 @@ function procesandoSeccion(section) {
             });
         }
     }
+    if (section.images) {
+        childrenPrincipal.push(utilsImage.getImage(doc, section.images));
+    }
     return childrenPrincipal;
 }
 
-module.exports.agregarSeccion = (section) => {
+module.exports.agregarSeccion = (section, doc) => {
     let childrenPrincipal = [];
     let executeProcess = {};
     if (section) {
         if (isArray(section)) {
             console.log('Existe varias secciones');
             for (let i = 0; i < section.length; i++) {
-                executeProcess = procesandoSeccion(section[i]);
+                executeProcess = procesandoSeccion(section[i], doc);
                 executeProcess.forEach(data => {
                     childrenPrincipal.push(data)
                 });
             }
         } else {
             console.log('Solo existe una seccion');
-            executeProcess = procesandoSeccion(section);
+            executeProcess = procesandoSeccion(section, doc);
             executeProcess.forEach(data => {
                 childrenPrincipal.push(data)
             });

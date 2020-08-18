@@ -1,5 +1,5 @@
 const utilsDocx = require('./utils-docx');
-const utilsTable = require('./add-table');
+const utilsTable = require('./utils-table');
 const defaultHead = require('./default-header');
 
 function getHeaderFromXMl(document) {

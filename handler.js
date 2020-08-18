@@ -1,9 +1,8 @@
 // Modulos
 const utilsDoc = require('./utils-docx');
 const utilsSection = require('./add-sections');
-const utilsTable = require('./add-table');
 const utilsXml = require('./read-xml');
-const utilsHeaders = require('./add-headers');
+const utilsHeaders = require('./utils-headers');
 
 module.exports.hello = async event => {
   // XML  de prueba desde string 
@@ -30,7 +29,8 @@ module.exports.hello = async event => {
   const tableContent = utilsSection.agregarTablaContenido(jsonData.document, doc);
   doc.addSection({ children: [tableContent] });
   // Se agrega una sección o secciones dependiendo el xml con encabezados
-  const childrenPrincipal = utilsSection.agregarSeccion(jsonData.document.section);
+  const childrenPrincipal = utilsSection.agregarSeccion(jsonData.document.section, doc);
+  console.log('Información a colocar en el documento', childrenPrincipal);
   doc.addSection(utilsHeaders.getHeaders(childrenPrincipal, jsonData.document.headers));
   // Se genera el doc
   await utilsDoc.generacionDoc(doc);
