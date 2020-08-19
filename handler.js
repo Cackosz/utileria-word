@@ -28,7 +28,6 @@ module.exports.hello = async event => {
     return null;
   }
   // Se agrega una tabla de contenido
-  
   const tableContent = section.agregarTablaContenido(jsonData.document, doc);
   doc.addSection({ children: [tableContent] });
   // Se agrega una sección o secciones dependiendo el xml con encabezados

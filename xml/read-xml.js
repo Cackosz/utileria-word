@@ -1,5 +1,10 @@
+// Helpers
 const convert = require('xml-js');
 const fs = require('fs');
+/**
+ * Funcion que lee y convierte a json el xml
+ * @param {xml a leer} xmlFile 
+ */
 module.exports.readXml = (xmlFile) => {
     if (!xmlFile) {
         console.log('Toma el xml de ejemplo para pruebas'),
@@ -18,6 +23,3 @@ module.exports.readXml = (xmlFile) => {
     }
     return jsonData;
 };
-
-
-
