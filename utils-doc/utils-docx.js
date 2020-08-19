@@ -80,6 +80,30 @@ module.exports.typeLetter = (letter) => {
     return type;
 };
 /**
+ * Agrega subrayado single o double
+ * @param {texto a subrayar} underlineText 
+ */
+module.exports.getUnderlines = (underlineText) => {
+    let underline = {};
+    if (underlineText) {
+        console.log('underlineText', underlineText)
+        if (underlineText.toUpperCase() === 'SINGLE') {
+            underline = {
+                type: docx.UnderlineType.SINGLE,
+                color: "000000",
+            }
+        } else if (underlineText.toUpperCase() === 'DOUBLE') {
+            underline = {
+                type: docx.UnderlineType.DOUBLE,
+                color: "000000",
+            }
+        }
+    }
+    if (Object.keys(underline).length !== 0) {
+        return underline;
+    }
+}
+/**
  * Agrega una celda a una tabla
  * @param {Celdas a agregar} childrenCell 
  * @param {Propiedades de la celd} attr 

@@ -28,8 +28,9 @@ function getTypeLetter(text) {
     const paragraphs = [];
     let textRun = {};
     let typeLetter = text._attributes ? utilsDocx.typeLetter(text._attributes.letter) : utilsDocx.typeLetter('');
+    let subrayar = text._attributes ? utilsDocx.getUnderlines(text._attributes.underline) : utilsDocx.getUnderlines('');
     if (text._text) {
-        textRun = { text: text._text.concat(space), bold: typeLetter, font: 'Arial', size: 22 };
+        textRun = { text: text._text.concat(space), underline: subrayar, bold: typeLetter, font: 'Arial', size: 22 };
     }
     paragraphs.push(utilsDocx.addTextRun(textRun));
     return paragraphs;
