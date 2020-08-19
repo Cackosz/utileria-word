@@ -23,13 +23,13 @@ function getProperties(image) {
     return properties;
 }
 
-module.exports.getImage = (doc, images) => {
+module.exports.getImage = async (doc, images) => {
     let imagen;
     if (doc && images) {
         if (images.img) {
             const properties = getProperties(images.img);
             if (images.img._text) {
-                imagen = utilsDocx.addImage(doc, images.img._text, properties);
+                imagen = await utilsDocx.addImage(doc, images.img._text, properties);
             }
         }
     }

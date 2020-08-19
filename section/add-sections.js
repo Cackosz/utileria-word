@@ -5,7 +5,7 @@ const utilsDocx = require('../utils-doc/utils-docx');
 const alineacion = 'justified';
 const utilsTable = require('../utils-doc/utils-table');
 const utilsImage = require('../utils-doc/utils-image');
-const { isArray } = require('util'); 
+const { isArray } = require('util');
 const space = ' ';
 
 
@@ -51,7 +51,7 @@ function getText(tagText) {
     return utilsDocx.addParagraph(paragraph);
 }
 
-function procesandoSeccion(section, doc) {
+async function procesandoSeccion(section, doc) {
     const childrenPrincipal = [];
     if (section.title) {
         const paragraphTitle = getTitles(section);
@@ -76,38 +76,32 @@ function procesandoSeccion(section, doc) {
         }
     }
     if (section.tables) {
-        if (isArray(section.tables)) {
-            console.log('si es array')
-        } else {
-            console.log('no es arra newy');
-            const test = utilsTable.generarTabla(section.tables);
-            test.forEach(table => {
-                console.log('tabless', table);
-                childrenPrincipal.push(table);
-            });
-        }
+        const table = utilsTable.generarTabla(section.tables);
+        table.forEach(table => {
+            childrenPrincipal.push(table);
+        });
     }
     if (section.images) {
-        childrenPrincipal.push(utilsImage.getImage(doc, section.images));
+        childrenPrincipal.push(await utilsImage.getImage(doc, section.images));
     }
     return childrenPrincipal;
 }
 
-module.exports.agregarSeccion = (section, doc) => {
+module.exports.agregarSeccion = async (section, doc) => {
     let childrenPrincipal = [];
     let executeProcess = {};
     if (section) {
         if (isArray(section)) {
             console.log('Existe varias secciones');
             for (let i = 0; i < section.length; i++) {
-                executeProcess = procesandoSeccion(section[i], doc);
+                executeProcess = await procesandoSeccion(section[i], doc);
                 executeProcess.forEach(data => {
                     childrenPrincipal.push(data)
                 });
             }
         } else {
             console.log('Solo existe una seccion');
-            executeProcess = procesandoSeccion(section, doc);
+            executeProcess = await procesandoSeccion(section, doc);
             executeProcess.forEach(data => {
                 childrenPrincipal.push(data)
             });

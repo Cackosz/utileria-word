@@ -1,6 +1,7 @@
 const docx = require('docx');
 const fs = require('fs');
 const atob = require('atob');
+const axios = require('axios');
 module.exports.addTextRun = (obj) => {
     if (!obj) {
         console.log('Ocurrio un error en agregar un TextRun desde docx');
@@ -135,18 +136,21 @@ module.exports.getPageNumberFormat = () => {
     return docx.PageNumberFormat.DECIMAL;
 }
 
-module.exports.addImage = (doc, imageBase64Data, properties) => {
-    if (!doc && imageBase64Data && properties) {
+module.exports.addImage = async (doc, imageBase64Data, properties) => {
+    const imageAxios = await axios.get(imageBase64Data, { responseType: 'arraybuffer' });
+    const imgBase64 = await  Buffer.from(imageAxios.data).toString('base64');
+    if (!doc && imgBase64 && properties) {
         console.log('Ocurrio un error en agrega la img desde docx');
         return null;
     }
+    
     let image = {};
     if (properties.flujo === 0) {
-        image = docx.Media.addImage(doc, Uint8Array.from(atob(imageBase64Data), c => c.charCodeAt(0)), parseFloat(properties.width), parseFloat(properties.height));
+        image = docx.Media.addImage(doc, Uint8Array.from(atob(imgBase64), c => c.charCodeAt(0)), parseFloat(properties.width), parseFloat(properties.height));
     } else {
         const ancho = parseInt(properties.width);
         const altura = parseInt(properties.height);
-        image = docx.Media.addImage(doc, Uint8Array.from(atob(imageBase64Data), c => c.charCodeAt(0)), ancho, altura, {
+        image = docx.Media.addImage(doc, Uint8Array.from(atob(imgBase64), c => c.charCodeAt(0)), ancho, altura, {
             floating: {
                 horizontalPosition: {
                     offset: parseFloat(properties.horizontal),
@@ -165,8 +169,10 @@ module.exports.addImage = (doc, imageBase64Data, properties) => {
     return image;
 }
 
-module.exports.defaultImg = (doc, img) => {
-    const image1 = docx.Media.addImage(doc, Uint8Array.from(atob(img), c => c.charCodeAt(0)), 60, 50, {
+module.exports.defaultImg = async (doc, img) => {
+    const image = await axios.get(img, { responseType: 'arraybuffer' });
+    const imgBase64 = await  Buffer.from(image.data).toString('base64');
+    const image1 = docx.Media.addImage(doc, Uint8Array.from(atob(imgBase64), c => c.charCodeAt(0)), 60, 50, {
         floating: {
           horizontalPosition: {
             offset: 1500000,
@@ -174,7 +180,7 @@ module.exports.defaultImg = (doc, img) => {
           verticalPosition: {
             offset: 480000,
           },
-        },
+        },  
       });
       return image1;
 }

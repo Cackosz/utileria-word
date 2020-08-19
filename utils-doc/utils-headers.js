@@ -22,7 +22,7 @@ function getFooterFromXMl(document) {
     return tables;
 }
 
-function getHeader(document, doc) {
+async function getHeader(document, doc) {
     let children = [];
     let getTables = getHeaderFromXMl(document);
     if (Object.keys(getTables).length === 0) {
@@ -33,7 +33,7 @@ function getHeader(document, doc) {
         });
     }
     if (document.head.img) {
-        const img = utilsDocx.defaultImg(doc, document.head.img._text);
+        const img = await utilsDocx.defaultImg(doc, document.head.img._text);
         children.push(utilsDocx.addParagraph({ children: [img] }));
     }
     const header = {
@@ -62,11 +62,11 @@ function getFooter(document) {
     return footer;
 }
 
-module.exports.getHeaders = (data, headers, doc) => {
+module.exports.getHeaders = async (data, headers, doc) => {
     let result = {};
     if (data) {
         result = {
-            headers: getHeader(headers, doc) ? getHeader(headers, doc) : '',
+            headers: await getHeader(headers, doc) ? await getHeader(headers, doc) : '',
             footers: getFooter(headers) ? getFooter(headers) : '',
             children: data
         }
