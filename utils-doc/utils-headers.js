@@ -2,7 +2,7 @@ const utilsDocx = require('./utils-docx');
 const utilsTable = require('./utils-table');
 const defaultHead = require('./default-header');
 
-function getHeaderFromXMl(document) {
+function getHeaderFromXMl(document, img) {
     let tables = {};
     if (document) {
         if (document.head) {
@@ -21,7 +21,8 @@ function getFooterFromXMl(document) {
     }
     return tables;
 }
-function getHeader(document) {
+
+function getHeader(document, doc) {
     let children = [];
     let getTables = getHeaderFromXMl(document);
     if (Object.keys(getTables).length === 0) {
@@ -30,6 +31,10 @@ function getHeader(document) {
         getTables.forEach(table => {
             children.push(utilsDocx.addParagraph({ text: ' ', children: [table] }));
         });
+    }
+    if (document.head.img) {
+        const img = utilsDocx.defaultImg(doc, document.head.img._text);
+        children.push(utilsDocx.addParagraph({ children: [img] }));
     }
     const header = {
         default: utilsDocx.addHeader({
@@ -57,11 +62,11 @@ function getFooter(document) {
     return footer;
 }
 
-module.exports.getHeaders = (data, headers) => {
+module.exports.getHeaders = (data, headers, doc) => {
     let result = {};
     if (data) {
         result = {
-            headers: getHeader(headers) ? getHeader(headers) : '',
+            headers: getHeader(headers, doc) ? getHeader(headers, doc) : '',
             footers: getFooter(headers) ? getFooter(headers) : '',
             children: data
         }

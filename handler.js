@@ -2,6 +2,8 @@
 const utilsDocx = require('./utils-doc/utils-docx');
 const utilsXml = require('./xml/read-xml');
 const utilsHeaders = require('./utils-doc/utils-headers');
+const docx = require('docx');
+const atob = require('atob');
 // Seccion a agregar
 const section = require('./section/add-sections');
 
@@ -28,12 +30,13 @@ module.exports.hello = async event => {
     return null;
   }
   // Se agrega una tabla de contenido
+  
   const tableContent = section.agregarTablaContenido(jsonData.document, doc);
   doc.addSection({ children: [tableContent] });
   // Se agrega una sección o secciones dependiendo el xml con encabezados
   const childrenPrincipal = section.agregarSeccion(jsonData.document.section, doc);
   console.log('Información a colocar en el documento', childrenPrincipal);
-  doc.addSection(utilsHeaders.getHeaders(childrenPrincipal, jsonData.document.headers));
+  doc.addSection(utilsHeaders.getHeaders(childrenPrincipal, jsonData.document.headers, doc));
   // Se genera el doc
   await utilsDocx.generacionDoc(doc);
   // Se genera documento en base64

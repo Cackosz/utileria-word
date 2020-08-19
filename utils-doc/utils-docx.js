@@ -164,6 +164,20 @@ module.exports.addImage = (doc, imageBase64Data, properties) => {
     }
     return image;
 }
+
+module.exports.defaultImg = (doc, img) => {
+    const image1 = docx.Media.addImage(doc, Uint8Array.from(atob(img), c => c.charCodeAt(0)), 60, 50, {
+        floating: {
+          horizontalPosition: {
+            offset: 1500000,
+          },
+          verticalPosition: {
+            offset: 480000,
+          },
+        },
+      });
+      return image1;
+}
 module.exports.createDocument = (documento) => {
     if (!documento) {
         console.log('Ocurrio un error en crear el documento desde docx');
