@@ -2,8 +2,6 @@
 const utilsDocx = require('./utils-doc/utils-docx');
 const utilsXml = require('./xml/read-xml');
 const utilsHeaders = require('./utils-doc/utils-headers');
-const docx = require('docx');
-const atob = require('atob');
 // Seccion a agregar
 const section = require('./section/add-sections');
 
