@@ -44,9 +44,11 @@ function getHeader(document, doc) {
             children.push(utilsDocx.addParagraph({ text: ' ', children: [table] }));
         });
     }
-    if (document.head.img) {
-        const img = utilsDocx.defaultImg(doc, document.head.img._text);
-        children.push(utilsDocx.addParagraph({ children: [img] }));
+    if (document) {
+        if (document.head.img) {
+            const img = utilsDocx.defaultImg(doc, document.head.img._text);
+            children.push(utilsDocx.addParagraph({ children: [img] }));
+        }
     }
     const header = {
         default: utilsDocx.addHeader({
