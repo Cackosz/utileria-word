@@ -1,6 +1,9 @@
-
+// Helpers
 const utilsDocx = require('./utils-docx');
-
+/**
+ * Obtiene las propiedades que puede tener la img
+ * @param {imagen del nodo img tanto del head como de los section} image 
+ */
 function getProperties(image) {
     let properties = {};
     if (image) {
@@ -22,7 +25,11 @@ function getProperties(image) {
     }
     return properties;
 }
-
+/**
+ * Obtiene la imagen del docx
+ * @param {documento a agregar la imagen} doc 
+ * @param {imagen a agregar} images 
+ */
 module.exports.getImage = async (doc, images) => {
     let imagen;
     if (doc && images) {

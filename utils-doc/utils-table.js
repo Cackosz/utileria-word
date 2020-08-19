@@ -1,8 +1,13 @@
+// Helpers
 const { isArray } = require('util');
 const utilsDocx = require('./utils-docx');
 const defaultHead = require('./default-header');
 const space = ' ';
-
+/**
+ * Obtiene las propiedades de la celda
+ * @param {propiedades de la celda} attr 
+ * @param {informacion de la celda} children 
+ */
 function getAtributosCell(attr, children) {
     let objCell = {};
     if (attr) {
@@ -20,7 +25,10 @@ function getAtributosCell(attr, children) {
     }
     return objCell;
 }
-
+/**
+ * Genera la celda de la tabla desde docx
+ * @param {celda a agregar} cell 
+ */
 function getTableCell(cell) {
     if (Object.entries(cell).length !== 0) {
         const childrenCell = [];
@@ -41,7 +49,10 @@ function getTableCell(cell) {
 
     }
 };
-
+/**
+ * Genera una fila desde docx
+ * @param {fila de la tabla} row 
+ */
 function getRow(row) {
     if (row) {
         const childrenRows = [];
@@ -55,7 +66,10 @@ function getRow(row) {
         return utilsDocx.generateTableRow(childrenRows);
     }
 };
-
+/**
+ * Agrega una tabla
+ * @param {tabla del xml ya sea del head, footer o section} tableXml 
+ */
 function agregarTabla(tableXml) {
     const rowsTable = [];
     let table = {};
@@ -76,7 +90,10 @@ function agregarTabla(tableXml) {
     }
     return table;
 };
-
+/**
+ * Recorre todas las tablas de un arreglo de tables
+ * @param {tablas encontrado en caso de ser arreglo} tablesXml 
+ */
 function recorrerTablas(tablesXml) {
     let table = [];
     if (isArray(tablesXml.table)) {
@@ -88,7 +105,10 @@ function recorrerTablas(tablesXml) {
     }
     return table;
 };
-
+/**
+ * Construye la tabla
+ * @param {tablas del xml} tablesXml 
+ */
 function buildTable(tablesXml) {
     let table = {};
     if (tablesXml) {
@@ -96,7 +116,10 @@ function buildTable(tablesXml) {
     }
     return table;
 };
-
+/**
+ * Genera las tablas del xml al documento
+ * @param {tablas del xml} tables 
+ */
 module.exports.generarTabla = (tables) => {
     const children = [];
     if (tables) {

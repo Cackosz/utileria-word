@@ -1,7 +1,12 @@
+// Helpers
 const utilsDocx = require('./utils-docx');
 const utilsTable = require('./utils-table');
 const defaultHead = require('./default-header');
-
+/**
+ * Genera una tabla dependiendo el nodo head del xml
+ * @param {document xml} document 
+ * @param {*} img 
+ */
 function getHeaderFromXMl(document, img) {
     let tables = {};
     if (document) {
@@ -11,7 +16,10 @@ function getHeaderFromXMl(document, img) {
     }
     return tables;
 }
-
+/**
+ * Genera una tabla dependiendo el node foot del xml
+ * @param {documento del xml} document 
+ */
 function getFooterFromXMl(document) {
     let tables = {};
     if (document) {
@@ -21,7 +29,11 @@ function getFooterFromXMl(document) {
     }
     return tables;
 }
-
+/**
+ * Obtiene el header
+ * @param {documento del xml} document 
+ * @param {doc de tipo docx para agregar imagenes} doc 
+ */
 async function getHeader(document, doc) {
     let children = [];
     let getTables = getHeaderFromXMl(document);
@@ -44,6 +56,10 @@ async function getHeader(document, doc) {
     return header;
 }
 
+/**
+ * Obtiene el footer
+ * @param {documento del xml} document 
+ */
 function getFooter(document) {
     let children = [];
     let getTables = getFooterFromXMl(document);
@@ -62,6 +78,12 @@ function getFooter(document) {
     return footer;
 }
 
+/**
+ * 
+ * @param {informacion del documento} data 
+ * @param {headers del nodo xml} headers 
+ * @param {doc tipo docx para agregar imagenes} doc 
+ */
 module.exports.getHeaders = async (data, headers, doc) => {
     let result = {};
     if (data) {

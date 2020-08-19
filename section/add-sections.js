@@ -7,8 +7,10 @@ const utilsTable = require('../utils-doc/utils-table');
 const utilsImage = require('../utils-doc/utils-image');
 const { isArray } = require('util');
 const space = ' ';
-
-
+/**
+ * Obtiene le titulo de la seccion
+ * @param {seccion del xml} section 
+ */
 function getTitles(section) {
     const title = section.title;
     const head = title._attributes.letter ? utilsDocx.head(title._attributes.letter) : '';
@@ -18,18 +20,25 @@ function getTitles(section) {
     }
     return paragraphTitle;
 }
-
+/**
+ * Obtiene tipo de letra bold
+ * @param {tag text del xml} text 
+ */
 function getTypeLetter(text) {
     const paragraphs = [];
     let textRun = {};
     let typeLetter = text._attributes ? utilsDocx.typeLetter(text._attributes.letter) : utilsDocx.typeLetter('');
+    let subrayar = text._attributes ? utilsDocx.getUnderlines(text._attributes.underline) : utilsDocx.getUnderlines('');
     if (text._text) {
-        textRun = { text: text._text.concat(space), bold: typeLetter, font: 'Arial', size: 22 };
+        textRun = { text: text._text.concat(space), underline: subrayar, bold: typeLetter, font: 'Arial', size: 22 };
     }
     paragraphs.push(utilsDocx.addTextRun(textRun));
     return paragraphs;
 }
-
+/**
+ * Obtiene el texto que tiene cada tag
+ * @param {tag text del xml} tagText 
+ */
 function getText(tagText) {
     const paragraph = { alignment: utilsDocx.alignment(alineacion), children: [] };
     let renglon = {};
@@ -51,6 +60,11 @@ function getText(tagText) {
     return utilsDocx.addParagraph(paragraph);
 }
 
+/**
+ * Procesa la secciones del xml
+ * @param {seccion del xml} section 
+ * @param {documento a agregar imagen} doc 
+ */
 async function procesandoSeccion(section, doc) {
     const childrenPrincipal = [];
     if (section.title) {
@@ -76,8 +90,8 @@ async function procesandoSeccion(section, doc) {
         }
     }
     if (section.tables) {
-        const table = utilsTable.generarTabla(section.tables);
-        table.forEach(table => {
+        const tbl = utilsTable.generarTabla(section.tables);
+        tbl.forEach(table => {
             childrenPrincipal.push(table);
         });
     }
@@ -87,6 +101,11 @@ async function procesandoSeccion(section, doc) {
     return childrenPrincipal;
 }
 
+/**
+ * Agrega una seccion
+ * @param {secciones del xml} section
+ * @param {documento a agregar imagenes} doc
+ */
 module.exports.agregarSeccion = async (section, doc) => {
     let childrenPrincipal = [];
     let executeProcess = {};
@@ -109,12 +128,15 @@ module.exports.agregarSeccion = async (section, doc) => {
     }
     return childrenPrincipal;
 }
-
-module.exports.agregarTablaContenido = (table) => {
+/**
+ * Genera una tabla de contenidos desde docx
+ * @param {nodo document del xml} document 
+ */
+module.exports.agregarTablaContenido = (document) => {
     let content = {};
-    if (table.tableContent) {
-        if (table.tableContent.title) {
-            content = utilsDocx.tableContents(table.tableContent.title)
+    if (document.tableContent) {
+        if (document.tableContent.title) {
+            content = utilsDocx.tableContents(document.tableContent.title)
         }
     }
     return content;
