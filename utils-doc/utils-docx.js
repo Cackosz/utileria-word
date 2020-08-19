@@ -116,7 +116,7 @@ module.exports.generateTableCell = (childrenCell, attr) => {
     }
     if (attr) {
         childrenCell.width = {
-            size: attr.width,
+            size: parseFloat(attr),
             type: docx.WidthType.DXA,
         }
         return new docx.TableCell(childrenCell);
